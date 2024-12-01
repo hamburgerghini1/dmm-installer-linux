@@ -6,7 +6,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ICON_PATH=~/.local/share/icons/hicolor/256x256/apps/
 EXEC_LINE="Exec=env WINEPREFIX=$WINEPREFIX "
 EXEC_LINE+="DOTNET_ROOT= $HOME/.local/share/wine.AppImage wine "
-EXEC_LINE+='C:\\\\\\\\DivaModManager\\\\\\\\DivaModManager.exe %u'
+EXEC_LINE+='C:\\\\\\\\DivaModManager\\\\\\\\DivaModManager.exe -download %u'
 PATH_LINE="Path=${WINEPREFIX}/drive_c/DivaModManager"
 DESKTOP_PATH="$HOME/.local/share/applications"
 alias wine='$HOME/.local/share/wine.AppImage wine'
