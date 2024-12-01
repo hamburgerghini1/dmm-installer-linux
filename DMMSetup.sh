@@ -39,7 +39,7 @@ fi
 #setup Prefix
 mkdir $WINEPREFIX
 wineboot -u
-if [ -n $installpath ]; then
+if [ -n "$installpath" ]; then
     wine reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1761390" /v InstallLocation /d "${installpath}\\" /f /reg:64
 fi
 cd $SCRIPT_DIR
