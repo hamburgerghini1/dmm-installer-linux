@@ -26,8 +26,6 @@ if [ -n $lib ]; then
     installpath=$(echo $installpath | sed -e 's|/|z:\\|' | sed -e 's|/|\\|g' )
 fi
 
-echo $installpath
-
 #Download Paths
 dmm="https://github.com/TekkaGB/DivaModManager/releases/latest/download/DivaModManager.zip"
 dotnet6="https://download.visualstudio.microsoft.com/download/pr/f6b6c5dc-e02d-4738-9559-296e938dabcb/b66d365729359df8e8ea131197715076/windowsdesktop-runtime-6.0.36-win-x64.exe"
@@ -41,7 +39,9 @@ fi
 #setup Prefix
 mkdir $WINEPREFIX
 wineboot -u
-wine reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1761390" /v InstallLocation /d "${installpath}\\" /f /reg:64
+if [ -n $installpath ]; then
+    wine reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1761390" /v InstallLocation /d "${installpath}\\" /f /reg:64
+fi
 cd $SCRIPT_DIR
 curl -o /tmp/windowsdesktop-runtime-6.0.36-win-x64.exe $dotnet6
 if [[ $wine_ver < 9.0 ]]

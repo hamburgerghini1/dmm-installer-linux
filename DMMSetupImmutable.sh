@@ -48,7 +48,9 @@ wine_ver=${wine_ver#*-}
 mkdir $WINEPREFIX
 wineboot
 cd $SCRIPT_DIR
-wine reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1761390" /v InstallLocation /d "${installpath}\\" /f /reg:64
+if [ -n $installpath ]; then
+    wine reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1761390" /v InstallLocation /d "${installpath}\\" /f /reg:64
+fi
 curl -o /tmp/windowsdesktop-runtime-6.0.36-win-x64.exe $dotnet6
 if [[ $wine_ver < 9.0 ]]
 then
