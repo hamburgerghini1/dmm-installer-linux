@@ -1,0 +1,9 @@
+ [Desktop Entry]
+Name=Diva Mod Manager
+Type=Application
+StartupNotify=true
+Icon=DivaModManager
+MimeType=x-scheme-handler/divamodmanager
+Exec=env WINEPREFIX=/home/alexandra/.local/share/dmm DOTNET_ROOT="" wine C:\\\\DivaModManager\\\\DivaModManager.exe %u
+Path=/home/alexandra/.local/share/dmm/drive_c/DivaModManager
+Categories=Game
