@@ -1,4 +1,5 @@
 # Diva Mod Manager Installer for Linux
+Installs Diva Mod Manager and its one click installer url handler.
 
 ## Dependencies
 
