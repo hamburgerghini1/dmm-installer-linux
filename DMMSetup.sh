@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #Environment
 WINEDLLOVERRIDES="mscoree=d;mshtml=d"
 export WINEPREFIX=$HOME/.local/share/dmm
@@ -11,6 +11,22 @@ PATH_LINE="Path=${WINEPREFIX}/drive_c/DivaModManager"
 DESKTOP_PATH="$HOME/.local/share/applications"
 wine_ver=$(wine --version)
 wine_ver=${wine_ver#*-}
+lib_paths=$(grep -Po '(?<="path"\s\s)"[\w./]+"' ~/.steam/root/steamapps/libraryfolders.vdf | tr -d '"')
+lib_count=$(echo "$lib_paths" | wc -l)
+x=1
+while [ $x -le $lib_count ]; do
+    cur_lib=$(echo "$lib_paths" | sed -n ${x}p)
+    if test -f "$cur_lib/steamapps/appmanifest_1761390.acf"; then
+        lib=$cur_lib
+    fi
+    x=$((x + 1))
+done
+if [ -n $lib ]; then
+    installpath="$lib/steamapps/common/Hatsune Miku Project DIVA Mega Mix Plus"
+    installpath=$(echo $installpath | sed -e 's|/|z:\\|' | sed -e 's|/|\\|g' )
+fi
+
+echo $installpath
 
 #Download Paths
 dmm="https://github.com/TekkaGB/DivaModManager/releases/latest/download/DivaModManager.zip"
@@ -25,7 +41,7 @@ fi
 #setup Prefix
 mkdir $WINEPREFIX
 wineboot -u
-#cd ${WINEPREFIX}/drive_c/windows/Fonts && for i in /usr/share/fonts/**/*.{ttf,otf}; do ln -s "$i"; done
+wine reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1761390" /v InstallLocation /d "${installpath}\\" /f /reg:64
 cd $SCRIPT_DIR
 curl -o /tmp/windowsdesktop-runtime-6.0.36-win-x64.exe $dotnet6
 if [[ $wine_ver < 9.0 ]]

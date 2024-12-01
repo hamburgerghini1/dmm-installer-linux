@@ -12,6 +12,22 @@ DESKTOP_PATH="$HOME/.local/share/applications"
 alias wine='$HOME/.local/share/wine.AppImage wine'
 alias winetricks='$HOME/.local/share/wine.AppImage winetricks'
 alias wineboot='$HOME/.local/share/wine.AppImage wineboot'
+lib_paths=$(grep -Po '(?<="path"\s\s)"[\w./]+"' ~/.steam/root/steamapps/libraryfolders.vdf | tr -d '"')
+lib_count=$(echo "$lib_paths" | wc -l)
+x=1
+while [ $x -le $lib_count ]; do
+    cur_lib=$(echo "$lib_paths" | sed -n ${x}p)
+    if test -f "$cur_lib/steamapps/appmanifest_1761390.acf"; then
+        lib=$cur_lib
+    fi
+    x=$((x + 1))
+done
+if [ -n $lib ]; then
+    installpath="$lib/steamapps/common/Hatsune Miku Project DIVA Mega Mix Plus"
+    installpath=$(echo $installpath | sed -e 's|/|z:\\|' | sed -e 's|/|\\|g' )
+fi
+
+
 
 #Download Paths
 dmm="https://github.com/TekkaGB/DivaModManager/releases/latest/download/DivaModManager.zip"
@@ -32,6 +48,7 @@ wine_ver=${wine_ver#*-}
 mkdir $WINEPREFIX
 wineboot
 cd $SCRIPT_DIR
+wine reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1761390" /v InstallLocation /d "${installpath}\\" /f /reg:64
 curl -o /tmp/windowsdesktop-runtime-6.0.36-win-x64.exe $dotnet6
 if [[ $wine_ver < 9.0 ]]
 then
