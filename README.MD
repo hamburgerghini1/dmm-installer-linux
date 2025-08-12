@@ -1,6 +1,8 @@
 # Diva Mod Manager Installer for Linux
 Installs Diva Mod Manager and its one click installer url handler.
 
+Forked this because I had some problems with wine version check on my debian sid system
+
 ## Dependencies
 
 ### Steam Deck and Immutable Distros
