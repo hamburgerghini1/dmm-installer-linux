@@ -30,11 +30,13 @@ fi
 dmm="https://github.com/TekkaGB/DivaModManager/releases/latest/download/DivaModManager.zip"
 dotnet6="https://download.visualstudio.microsoft.com/download/pr/f6b6c5dc-e02d-4738-9559-296e938dabcb/b66d365729359df8e8ea131197715076/windowsdesktop-runtime-6.0.36-win-x64.exe"
 
-if [[ $wine_ver < 8.20 ]]
-then
-    echo "Wine version is unsupported, please upgrade to wine version 8.26 or later. You may need to install wine-staging package."
+if [ "$(printf '%s\n' "8.20" "$wine_ver" | sort -V | head -n1)" = "8.20" ]; then
+    : # OK
+else
+    echo "Wine version is unsupported, please upgrade to wine version 8.26 or later."
     exit
 fi
+
 
 #setup Prefix
 mkdir $WINEPREFIX
