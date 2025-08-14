@@ -4,6 +4,6 @@ Type=Application
 StartupNotify=true
 Icon=DivaModManager
 MimeType=x-scheme-handler/divamodmanager
-Exec=env WINEPREFIX=/home/alexandra/.local/share/dmm DOTNET_ROOT="" wine C:\\\\DivaModManager\\\\DivaModManager.exe -download %u
-Path=/home/alexandra/.local/share/dmm/drive_c/DivaModManager
+Exec=env WINEPREFIX=/home/tommi/.local/share/dmm DOTNET_ROOT="" wine C:\\\\DivaModManager\\\\DivaModManager.exe -download %u
+Path=/home/tommi/.local/share/dmm/drive_c/DivaModManager
 Categories=Game
